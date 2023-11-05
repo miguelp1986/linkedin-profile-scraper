@@ -148,7 +148,7 @@ def parse_profile(soup):
         for li in volunteering_li:
             role = li.find("div", {"class": "display-flex align-items-center mr1 t-bold"}).find("span").text.strip()
             organization = li.find("span", {"class": "t-14 t-normal"}).find("span").text.strip()
-            volunteering.append({   
+            volunteering.append({
                 "role": role,
                 "organization": organization
             })
@@ -241,6 +241,7 @@ def login(driver, linkedin_username, linkedin_password):
     tfa_code = input("Enter 2FA code:")
     driver.find_element("id", "input__phone_verification_pin").send_keys(tfa_code)
     driver.find_element(By.XPATH, "//button[@type='submit']").click()
+
 
 if __name__ == "__main__":
     # Parse command-line arguments
