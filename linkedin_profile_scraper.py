@@ -222,10 +222,15 @@ def login(driver, linkedin_username, linkedin_password):
     driver.get("https://www.linkedin.com/login")
     driver.find_element("id", "username").send_keys(linkedin_username)
     driver.find_element("id", "password").send_keys(linkedin_password)
-    driver.find_element(By.XPATH, "//button[@type='submit']").click()  # this triggers 2FA
-    tfa_code = input("Enter 2FA code:")
-    driver.find_element("id", "input__phone_verification_pin").send_keys(tfa_code)
     driver.find_element(By.XPATH, "//button[@type='submit']").click()
+    
+    # Wait 5 seconds for the page to load
+    time.sleep(5)
+    # Check if 2FA is requesteds
+    if driver.find_element("id", "input__phone_verification_pin") is not None:
+        tfa_code = input("Enter 2FA code:")
+        driver.find_element("id", "input__phone_verification_pin").send_keys(tfa_code)
+        driver.find_element(By.XPATH, "//button[@type='submit']").click()
 
 
 if __name__ == "__main__":
