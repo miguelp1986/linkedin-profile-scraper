@@ -217,21 +217,6 @@ def load_credentials():
     return username, password
 
 
-def remove_duplicates(data):
-    """Remove duplicate entries from a list."""
-    unique_data = []
-    seen_data = set()
-
-    for entry in data:
-        key = (entry["company_name"], entry["timeframe"], entry["location"])
-
-        if key not in seen_data:
-            seen_data.add(key)
-            unique_data.append(entry)
-
-    return unique_data
-
-
 def login(driver, linkedin_username, linkedin_password):
     """Log in to LinkedIn."""
     driver.get("https://www.linkedin.com/login")
