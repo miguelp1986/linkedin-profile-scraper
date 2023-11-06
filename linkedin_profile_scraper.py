@@ -87,7 +87,7 @@ def parse_profile(soup):
     experience_div = soup.find('div', {"id": "experience"})
     if experience_div is not None:
         experience_section = experience_div.parent
-        exp_list = experience_section.find('ul').findAll('li')
+        exp_list = experience_section.find('ul').findAll('li', {"class": "artdeco-list__item pvs-list__item--line-separated pvs-list__item--one-column"})
         experience = []
 
         for each_exp in exp_list:
@@ -106,6 +106,11 @@ def parse_profile(soup):
                 location = col.findAll('span', {"class": "t-14 t-normal t-black--light"})[1].find('span').text
                 experience[-1]["timeframe"] = timeframe.replace('\n', '').strip()
                 experience[-1]["location"] = location.replace('\n', '').strip()
+
+            description_dv = each_exp.find("div", {"class": "inline-show-more-text inline-show-more-text--is-collapsed inline-show-more-text--is-collapsed-with-line-clamp full-width"})
+            if description_dv is not None:
+                description = description_dv.find("span").text.strip()
+                experience[-1]["description"] = description
 
             # remove duplicate entries
             unique_experience = []
